@@ -9,7 +9,7 @@ int main()
 	std::cout<<"--------------- EUCLIDEAN CLUSTERINT --------------"<<std::endl;
 	file::FileRead file_read;
 
-        file_read.openFile( "test_data5" );
+        file_read.openFile( "test_data_2" );
 
 	cluster::Cluster<float> cluster;
 
@@ -34,7 +34,7 @@ int main()
 		
 
 		// mapping
-		Eigen::Vector3f robot_pose( data.x, data.y, data.theta );
+		Eigen::Vector3f robot_pose( data.x, -data.y, -data.theta );
 		std::cout<<"robot pose = "<<robot_pose.transpose()<<std::endl;
 		
 		obstacle::Obstacles<float> obstacles;

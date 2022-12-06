@@ -146,8 +146,12 @@ public:
 
 			obs.rect_[i][0] = tr[i].x;
 			obs.rect_[i][1] = tr[i].y;
+			std::cout<<"obs.rect_["<<i<<"] = "<<obs.rect_[i].transpose()<<std::endl;
 		}	
 		obs.pose_ = pt_all;
+	
+                obs.length_ = ( obs.rect_[0] - obs.rect_[2] ).norm();
+                std::cout<<"length = "<<obs.length_<<", pose = "<<obs.pose_.transpose()<<std::endl;
 	}
 
 private:

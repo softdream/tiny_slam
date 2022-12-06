@@ -22,6 +22,18 @@ public:
 	template<typename T>
 	static void displayVertexPoses( const std::vector<Eigen::Matrix<T, 3, 1>> &vertex_poses, const std::string &window_name = "vertex", const T scale = 400 );
 
+	template<typename T>
+        static void angleNormalize( T &angle )
+        {
+                if( angle >= M_PI ){
+                        angle -= 2 * M_PI;
+                }
+
+                if( angle <= -M_PI ){
+                        angle += 2 * M_PI;
+                }
+        }
+	
 	static void displayAScan(const sensor::LaserScan& scan);
 
 	template<typename T>
@@ -86,9 +98,10 @@ void Utils::lidarData2DataContainer( const sensor::LaserScan& scan, sensor::Scan
                 if( dist <= 0.005 || dist >= 0.3 ) {
                 }else{
 
-                	T theta = scan.angles[i];
-                        T lidar_x = dist * cos( (M_PI / 180) * theta );
-                        T lidar_y = -dist * sin( (M_PI / 180) * theta );
+                	T theta = scan.angles[i] * (M_PI / 180);
+			angleNormalize( theta );
+                        T lidar_x = dist * cos( theta );
+                        T lidar_y = -dist * sin( theta );
                         std::cout << "dist : ( " << lidar_x << ", " << lidar_y << " )" << std::endl;
                         scan_container.addData( Eigen::Matrix<T, 2, 1>( lidar_x, lidar_y ));
                }

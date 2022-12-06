@@ -3,6 +3,7 @@
 
 #include <Eigen/Dense>
 #include <vector>
+#include <iostream>
 
 namespace obstacle
 {
@@ -20,7 +21,7 @@ struct Obstacle
 
 	Obstacle( const Vector2 rect[4], const Vector2& pose ) : rect_{ rect[0], rect[1], rect[2], rect[3] }, pose_(pose)
 	{
-
+		length_ = ( rect_[0] - rect_[2] ).norm();
 	}
 
 	~Obstacle()
@@ -30,6 +31,7 @@ struct Obstacle
 
 	Vector2 pose_ = Vector2::Zero();
 	Vector2 rect_[4];
+	DataType length_ = 0;
 };
 
 template<typename T>
